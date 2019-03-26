@@ -64,9 +64,9 @@ public class Guarantee<T>: Thenable {
     }
 }
 
-public extension Guarantee {
+extension Guarantee {
     @discardableResult
-    func done(on: DispatchQueue? = conf.Q.return, _ body: @escaping(T) -> Void) -> Guarantee<Void> {
+    public func done(on: DispatchQueue? = conf.Q.return, _ body: @escaping(T) -> Void) -> Guarantee<Void> {
         let rg = Guarantee<Void>(.pending)
         pipe { (value: T) in
             on.async {
@@ -77,7 +77,7 @@ public extension Guarantee {
         return rg
     }
 
-    func map<U>(on: DispatchQueue? = conf.Q.map, _ body: @escaping(T) -> U) -> Guarantee<U> {
+    public func map<U>(on: DispatchQueue? = conf.Q.map, _ body: @escaping(T) -> U) -> Guarantee<U> {
         let rg = Guarantee<U>(.pending)
         pipe { value in
             on.async {
@@ -88,7 +88,7 @@ public extension Guarantee {
     }
 
 	@discardableResult
-    func then<U>(on: DispatchQueue? = conf.Q.map, _ body: @escaping(T) -> Guarantee<U>) -> Guarantee<U> {
+    public func then<U>(on: DispatchQueue? = conf.Q.map, _ body: @escaping(T) -> Guarantee<U>) -> Guarantee<U> {
         let rg = Guarantee<U>(.pending)
         pipe { value in
             on.async {

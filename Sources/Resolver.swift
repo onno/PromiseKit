@@ -13,14 +13,14 @@ public class Resolver<T> {
     }
 }
 
-public extension Resolver {
+extension Resolver {
     /// Fulfills the promise with the provided value
-    func fulfill(_ value: T) {
+    public func fulfill(_ value: T) {
         box.seal(.fulfilled(value))
     }
 
     /// Rejects the promise with the provided error
-    func reject(_ error: Error) {
+    public func reject(_ error: Error) {
         box.seal(.rejected(error))
     }
 
